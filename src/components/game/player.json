@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_game_players",
+  "info": {
+    "displayName": "Player",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "player_id": {
+      "type": "string"
+    }
+  }
+}
