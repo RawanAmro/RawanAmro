@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * bundle router
+ * static-page router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::bundle.bundle');
+module.exports = createCoreRouter('api::static-page.static-page');
