@@ -28,6 +28,10 @@ module.exports = (config, {strapi}) => {
             startTime: moment().unix(),
           };
           await redisClient.set(ctx.state.user.id, JSON.stringify(body));
+          strapi.log.info("strapi.log availability:", typeof strapi.log);
+          strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
+          strapi.log.info(`User ID: ${ctx.state.user.id}`);
+          strapi.log.info("difference is greater than 1 minute")
           next();
           // increment the count if the time_difference is less than 1 minute
         } else if (time_difference < 1 && requestDetails.count <= THROTTLE_LIMIT) {
@@ -36,10 +40,16 @@ module.exports = (config, {strapi}) => {
             ctx.state.user.id,
             JSON.stringify(requestDetails)
           );
+          strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
+          strapi.log.info(`User ID: ${ctx.state.user.id}`);
+          strapi.log.info("difference is less than 1 minute")
           next();
           // return error if the time_difference is less than 1 minute and count is greater than 3
         } else {
           strapi.log.error("Throttled limit exceeded...");
+          strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
+          strapi.log.info(`User ID: ${ctx.state.user.id}`);
+          strapi.log.info("time_difference is less than 1 minute and count is greater than 3");
           ctx.response.status = 429;
           ctx.response.body = {
             error: 1,
