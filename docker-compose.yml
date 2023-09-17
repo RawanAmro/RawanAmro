@@ -3,7 +3,7 @@ services:
   strapi:
     image: strapi_image
     ports:
-      - "1337:1337"
+      - 1337:1337
     depends_on:
 #      - redis
       - mysql-container # Ensure this matches the name of your MySQL service
@@ -17,7 +17,7 @@ services:
       - MYSQL_ROOT_USERNAME=root
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - "3306:3306"
+      - 3306:3306
 
 #  keycloak:
 #    image: jboss/keycloak:9.0.2
