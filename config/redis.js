@@ -1,17 +1,3 @@
-// Import the ioredis library
-const Redis = require("ioredis");
-
-// Create a new Redis client instance
-const redis = new Redis({
-  host: 'redis', // Should match the name of your Redis service in Docker Compose
-  port: 6379,     // Default Redis port
-});
-
-// Register an error handler for the Redis client
-redis.on("error", (error) => {
-  console.error("Redis Error:", error);
-});
-
 module.exports = ({env}) => ({
   defaultConnection: 'default',
   connections: {
@@ -30,3 +16,18 @@ module.exports = ({env}) => ({
     },
   },
 });
+
+// Import the ioredis library
+const Redis = require("ioredis");
+
+// Create a new Redis client instance
+const redis = new Redis({
+  host: 'redis', // Should match the name of your Redis service in Docker Compose
+  port: 6379,     // Default Redis port
+});
+
+// Register an error handler for the Redis client
+redis.on("error", (error) => {
+  console.error("Redis Error:", error);
+});
+
