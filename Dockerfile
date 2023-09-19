@@ -80,6 +80,7 @@ COPY .env /app/
 
 
 RUN npm install
+RUN npm install strapi@latest -g
 RUN  npm i ioredis moment --save
 RUN npm run build
 
