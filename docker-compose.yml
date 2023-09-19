@@ -14,9 +14,11 @@ services:
       - '6379:6379'
   mysql-container:
     image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_USERNAME=root
       - MYSQL_ROOT_PASSWORD=root
+      - default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
 

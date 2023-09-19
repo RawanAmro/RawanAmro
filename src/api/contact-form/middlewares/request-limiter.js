@@ -1,16 +1,19 @@
-'use strict';
+"use strict";
 
 /**
  * `request-limiter` middleware
  */
 
 const THROTTLE_LIMIT = 3;
-const redis = require("ioredis");
-const redisClient = redis.createClient();
+const { Redis } = require("ioredis");
+const redisClient = new Redis({
+  host: "redis",
+  port: 6379,
+});
 const moment = require("moment");
-strapi.log.info("*********************")
+strapi.log.info("*********************");
 
-module.exports = (config, {strapi}) => {
+module.exports = (config, { strapi }) => {
   // Add your own logic here.
   return async (ctx, next) => {
     try {
@@ -32,10 +35,13 @@ module.exports = (config, {strapi}) => {
           strapi.log.info("strapi.log availability:", typeof strapi.log);
           strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
           strapi.log.info(`User ID: ${ctx.state.user.id}`);
-          strapi.log.info("difference is greater than 1 minute")
+          strapi.log.info("difference is greater than 1 minute");
           next();
           // increment the count if the time_difference is less than 1 minute
-        } else if (time_difference < 1 && requestDetails.count <= THROTTLE_LIMIT) {
+        } else if (
+          time_difference < 1 &&
+          requestDetails.count <= THROTTLE_LIMIT
+        ) {
           requestDetails.count++;
           await redisClient.set(
             ctx.state.user.id,
@@ -43,14 +49,16 @@ module.exports = (config, {strapi}) => {
           );
           strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
           strapi.log.info(`User ID: ${ctx.state.user.id}`);
-          strapi.log.info("difference is less than 1 minute")
+          strapi.log.info("difference is less than 1 minute");
           next();
           // return error if the time_difference is less than 1 minute and count is greater than 3
         } else {
           strapi.log.error("Throttled limit exceeded...");
           strapi.log.info(`User Object: ${JSON.stringify(ctx.state.user)}`);
           strapi.log.info(`User ID: ${ctx.state.user.id}`);
-          strapi.log.info("time_difference is less than 1 minute and count is greater than 3");
+          strapi.log.info(
+            "time_difference is less than 1 minute and count is greater than 3"
+          );
           ctx.response.status = 429;
           ctx.response.body = {
             error: 1,
@@ -71,6 +79,5 @@ module.exports = (config, {strapi}) => {
       strapi.log.error(err);
       throw err;
     }
-
   };
 };

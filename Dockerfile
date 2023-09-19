@@ -80,7 +80,6 @@ COPY .env /app/
 
 
 RUN npm install
-RUN  npm i ioredis moment --save
 RUN npm run build
 
 COPY . .
