@@ -5,7 +5,7 @@ module.exports = ({ env }) => ({
     icon: 'key',
     key: '',
     secret: '',
-    callback: `'http://strapi:1337/keycloak/callback'`,
+    callback: `'http://localhost:1337/admin/auth/local/callback'`,
     scope: ['email'],
   app: {
     keys: env.array('APP_KEYS'),
