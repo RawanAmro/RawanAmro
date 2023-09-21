@@ -80,11 +80,11 @@ COPY .env /app/
 
 
 RUN npm install
-RUN npm install strapi@latest -g
-RUN  npm i ioredis moment --save
+#RUN npm install strapi@latest -g
+#RUN  npm i ioredis moment --save
 RUN  npm install keycloak-connect
-RUN  npm install axios
-RUN npm install purest
+#RUN  npm install axios
+#RUN npm install purest
 RUN npm run build
 
 COPY . .

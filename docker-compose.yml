@@ -31,8 +31,8 @@ services:
       DB_DATABASE: strapi
       DB_USER: root
       DB_PASSWORD: root
-      KEYCLOAK_USER: root7
-      KEYCLOAK_PASSWORD: root7
+      KEYCLOAK_USER: root8
+      KEYCLOAK_PASSWORD: root8
       PROXY_ADDRESS_FORWARDING: "true"
     ports:
       - 8080:8080

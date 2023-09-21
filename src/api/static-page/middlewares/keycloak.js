@@ -50,7 +50,7 @@ const keycloak = new Purest({
   provider: 'keycloak',
   config: {
     'keycloak': {
-      'http://keycloak:8080/auth/realms/test_realm': {
+      'http://keycloak/auth': {
         '__domain': {
           'auth': {
             'auth': {
@@ -68,13 +68,31 @@ const keycloak = new Purest({
   }
 });
 
-keycloak.query().get('protocol/openid-connect/userinfo').auth('eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2SmZSd3pwS2o2dUxGMkhOM0U4V0kyVktkUzZGYjFvT0c2TEFkc2ZYTXQwIn0.eyJleHAiOjE2OTUyMzAzNzAsImlhdCI6MTY5NTIzMDA3MCwianRpIjoiNzU4YmExMDEtNGFhZS00NmIzLWFjMGQtYzI3OThkZmRlNzI4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL3Rlc3RfcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjkzOThjYTktMzY5Yy00MmIwLWI2OTMtOTI2NGMyNDU1NjI4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3RyYXBpX3Rlc3QiLCJzZXNzaW9uX3N0YXRlIjoiMDdlYzk4MjYtZTFkOS00MWU1LThiMmEtZDNiNzg0ZGY3OWYxIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiUkFXQU4gYW1ybyIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3RfdXNlciIsImdpdmVuX25hbWUiOiJSQVdBTiIsImZhbWlseV9uYW1lIjoiYW1ybyIsImVtYWlsIjoicmF3YW5Ac2l0ZWNoLm1lIn0.X3PIBTocrJharL1Uv9bBR8dlGK4xH2xvYicjMVY-7upgg_rKjPOaVFhqk6U1ayzEv_6bqUSudwklOhnsjbIcnJ-T7A6mtnkThi6MYP6BxNovvmZl37uAq-zLA6VyLpqADUq3qfuuw4qfZR1xVxMMX1srOuje4uUXkLCS8uAeWnLCBaFMIbpDZM1Con0GAXLYomycEbr0dv1kb3j3Cdt65Oy-ZTu5do9izSiqjk1SP_S7K9AucI2UkmAn79wvDkv56LZvfTpEVOoM8yubhpK52CXRezqE6hQE2-xWN-g5JYw2WVFeSkhGUunFA-XXbeGxmAW88tgH5xW5YQAV1WRZTQ').request((err, res, body) => {
-  if (err) {
-    callback(err);
-  } else {
-    callback(null, {
-      username: body.preferred_username,
-      email: body.email
-    });
+async function getUserInfo() {
+  try {
+    const response = await keycloak
+      .get('protocol/openid-connect/userinfo')
+      .auth('eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkRFIySVVuYmZsdmFRQkVvbHhyWmlJZDR0bnBPZlJ2WDBEMHUwa2x1UnIwIn0.eyJleHAiOjE2OTUyODkzMTgsImlhdCI6MTY5NTI4OTAxOCwianRpIjoiMjBmZTVlNjYtY2I2Yi00OWExLTg5YzUtMjk2NjgwMjc1NzZkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL3Rlc3RfcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiOTE1Y2I3MzUtMDllMi00MmU3LWJkMWYtNGE3N2RjNzE4YWRjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3RyYXBpX3Rlc3QiLCJzZXNzaW9uX3N0YXRlIjoiZDY0NjYxNTQtNGY1NS00OWNkLWJlNDItMWRlZDA5OTBjZjEzIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZXN0X3VzZXIifQ.BKjAdv04DkLQtszlEJm3SKs-I_qKRvmW9khsOA2ma7-VuHFZQgG_0oQuNbMFvi7G8vkv6IzozsT9Sr1Ub-JrDJiCIw1RrjhPcmdbzMqf7qyP20bLW7NyI5ga8rQw6coo5cHGgvROgQ-9sq5nJyE0CtnkHUKRtnoGTgO-E4vBagEtmKT-3kJMwqGnqvPCWtDFZF12WDVphPQnmjdkOl7gBbX6FU_zS4jtqsjpaEu_ZUsSgCI5aC3t_di0WruGG5XGmpympCo5AyJIjqXIqpuZH9vk_XoY8KX5_lHY5lDFHvSM3kRCU8g-QaRPpJ3hiD8chkYcasQPI9-SqzLPCRYlvw')
+      .request();
+
+    if (response.status === 200) {
+      return {
+        username: response.body.preferred_username,
+        email: response.body.email,
+      };
+    } else {
+      throw new Error('Failed to obtain user info');
+    }
+  } catch (error) {
+    throw error;
   }
-});
+}
+
+// Usage example:
+// getUserInfo()
+//   .then((userInfo) => {
+//     console.log('User Info:', userInfo);
+//   })
+//   .catch((error) => {
+//     console.error('Error:', error.message);
+//   });
