@@ -2,6 +2,7 @@ version: '3'
 services:
   strapi:
     image: strapi_image
+    command: ['npm', 'run', 'develop']
     ports:
       - 1337:1337
     depends_on:
@@ -31,10 +32,12 @@ services:
       DB_DATABASE: strapi
       DB_USER: root
       DB_PASSWORD: root
-      KEYCLOAK_USER: root8
-      KEYCLOAK_PASSWORD: root8
+      KEYCLOAK_USER: root18
+      KEYCLOAK_PASSWORD: root18
       PROXY_ADDRESS_FORWARDING: "true"
     ports:
       - 8080:8080
+    expose:
+      - 8080
     depends_on:
       - mysql-container

@@ -1,13 +1,10 @@
-console.log('**********skjfla***************');
-const keycloakService = require('../middlewares/keycloak'); // Adjust the path as needed
-const { createCoreRouter } = require('@strapi/strapi').factories;
-const keycloakMiddleware = require('../middlewares/keycloak-provider'); // Import your middleware function
+console.log("KKKKKK routes")
+const { createCoreRouter } = require("@strapi/strapi").factories;
 
-module.exports = createCoreRouter('api::static-page.static-page', {
-  // ...other route configurations
+module.exports = createCoreRouter("api::static-page.static-page", {
   config: {
     find: {
-      middlewares: [keycloakMiddleware], // Use the middleware function
-    },
-  },
+      middlewares:  ["api::static-page.keycloak-middleware"]  ,
+    }
+  }
 });
