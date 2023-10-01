@@ -4,7 +4,7 @@ const { createCoreRouter } = require("@strapi/strapi").factories;
 module.exports = createCoreRouter("api::static-page.static-page", {
   config: {
     find: {
-      middlewares:  ["api::static-page.keycloak-middleware"]  ,
+      middlewares: ["plugin::keycloak.keycloak"],
     }
   }
 });

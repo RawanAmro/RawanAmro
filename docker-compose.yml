@@ -3,6 +3,9 @@ services:
   strapi:
     image: strapi_image
     command: ['npm', 'run', 'develop']
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
     ports:
       - 1337:1337
     depends_on:
@@ -32,8 +35,8 @@ services:
       DB_DATABASE: strapi
       DB_USER: root
       DB_PASSWORD: root
-      KEYCLOAK_USER: root18
-      KEYCLOAK_PASSWORD: root18
+      KEYCLOAK_USER: root20
+      KEYCLOAK_PASSWORD: root20
       PROXY_ADDRESS_FORWARDING: "true"
     ports:
       - 8080:8080
