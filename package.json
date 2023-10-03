@@ -12,6 +12,7 @@
   "dependencies": {
     "@strapi/plugin-graphql": "^4.12.0",
     "@strapi/plugin-i18n": "4.12.0",
+    "@hipsquare/strapi-plugin-keycloak":"1.0.4",
     "@strapi/plugin-users-permissions": "4.12.0",
     "@strapi/strapi": "4.12.0",
     "better-sqlite3": "8.0.1",
