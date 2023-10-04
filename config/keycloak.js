@@ -1,26 +1,25 @@
 module.exports = {
-  // client ID
+  grant_type: "password",
   clientId: "strapi_test",
 
-  jwtPublicKey: "FZOWVtbIEJmg_wns-5ZVmrRVOmaxgqbnr2BPCBsSYes",
+  username: "test_user",
+  password: "root",
 
-  jwtAlgorithm: "HS256",
-
-  clientSecret: "814ab3e3-f7cd-4761-9234-d284329134af",
+  clientSecret: "V4OQ1Lkhpm5HFmiH6UX1WgMd9VvFB5Lt",
 
   authEndpoint:
-    "http://localhost:8080/auth/realms/test_realm",
+    "http://keycloak:8080/realms/test_realm",
 
-  authServerUrl: 'http://localhost:8080/auth/',
+  authServerUrl: 'http://0.0.0.0:8080/',
 
   tokenEndpoint:
-    "http://localhost:8080/auth/realms/test_realm/protocol/openid-connect/token",
+    "http://keycloak:8080/realms/test_realm/protocol/openid-connect/token",
 
   userinfoEndpoint:
-    "http://localhost:8080/auth/realms/test_realm/protocol/openid-connect/userinfo",
+    "http://0.0.0.0:8080/realms/test_realm/protocol/openid-connect/userinfo",
 
   logoutEndpoint:
-    "http://keycloak:8080/auth/realms/test_realm/protocol/openid-connect/logout",
+    "http://0.0.0.0:8080/realms/test_realm/protocol/openid-connect/logout",
 
   redirectUri: "http://localhost:1337/keycloak/callback",
 

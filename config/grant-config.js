@@ -1,4 +1,4 @@
-module.exports = ({ env }) => ({
+module.exports = ({env}) => ({
   host: 'keycloak',
   port: env.int('PORT', 8080),
     enabled: true,
